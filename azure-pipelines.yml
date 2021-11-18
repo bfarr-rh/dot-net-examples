@@ -15,9 +15,4 @@ steps:
 - script: |
     oc new-app dotnet:3.1~https://github.com/redhat-developer/s2i-dotnetcore-ex#dotnetcore-3.1 --context-dir app 
   displayName: 'Create a new application'
-- script: |
-    oc expose service s2i-dotnetcore-ex --follow
-  displayName: 'Expose the service as a route'
-- script: |
-    oc get route s2i-dotnetcore-ex --follow
-  displayName: 'Display the route'
+
