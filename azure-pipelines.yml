@@ -10,9 +10,18 @@ pool:
   name: 'BenMachine'
 
 steps:
-- script: echo Hello, world!
+- script: echo Starting Pipeline!
   displayName: 'Run a one-line script'
+- script: oc status
+  displayName: 'Test oc'
+- script: oc delete all --selector app=dot-net-example
+  displayName: 'Clean up previous'
 - script: |
-    oc new-app dotnet:3.1~https://github.com/redhat-developer/s2i-dotnetcore-ex#dotnetcore-3.1 --context-dir app 
+    oc new-build --name dot-net-example --binary --strategy source --image-stream dotnet:3.1 
+  displayName: 'Create a new build for an OpenShift s2i build'
+- script: |
+    oc start-build dot-net-example --from-dir . --follow 
+  displayName: 'Run the build and '
+- script: |
+    oc new-app dot-net-example
   displayName: 'Create a new application'
-

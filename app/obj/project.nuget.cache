@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "UwSs8GMJDIXr8pFIKXwHjVQ/SHxZI75xXCnFpFTJHE/ZldfCg5srLpviHKgWNfrlqN47X600tzxGtimUSAZrbw==",
+  "success": true,
+  "projectFilePath": "/Users/bfarr/projects/dot-net-examples/tmp/tmp.csproj",
+  "expectedPackageFiles": [
+    "/Users/bfarr/.nuget/packages/microsoft.aspnetcore.nodeservices/3.1.21/microsoft.aspnetcore.nodeservices.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.aspnetcore.spaservices/3.1.21/microsoft.aspnetcore.spaservices.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.aspnetcore.spaservices.extensions/3.1.21/microsoft.aspnetcore.spaservices.extensions.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.configuration/3.1.21/microsoft.extensions.configuration.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.configuration.abstractions/3.1.21/microsoft.extensions.configuration.abstractions.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.configuration.binder/3.1.21/microsoft.extensions.configuration.binder.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.dependencyinjection/3.1.21/microsoft.extensions.dependencyinjection.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/3.1.21/microsoft.extensions.dependencyinjection.abstractions.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.fileproviders.abstractions/3.1.21/microsoft.extensions.fileproviders.abstractions.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.fileproviders.physical/3.1.21/microsoft.extensions.fileproviders.physical.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.filesystemglobbing/3.1.21/microsoft.extensions.filesystemglobbing.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.logging/3.1.21/microsoft.extensions.logging.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.logging.abstractions/3.1.21/microsoft.extensions.logging.abstractions.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.logging.configuration/3.1.21/microsoft.extensions.logging.configuration.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.logging.console/3.1.21/microsoft.extensions.logging.console.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.options/3.1.21/microsoft.extensions.options.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.options.configurationextensions/3.1.21/microsoft.extensions.options.configurationextensions.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/microsoft.extensions.primitives/3.1.21/microsoft.extensions.primitives.3.1.21.nupkg.sha512",
+    "/Users/bfarr/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
