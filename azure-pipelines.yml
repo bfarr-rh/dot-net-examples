@@ -15,7 +15,7 @@ steps:
 - script: oc status
   displayName: 'Test oc'
 - script: |
-    oc delete deployment,svc --selector app=dot-net-example --ignore-not-found
+    oc delete deployment,svc,route --selector app=dot-net-example --ignore-not-found
     oc delete bc dot-net-example --ignore-not-found
   displayName: 'Clean up previous'
 - script: oc new-build --name dot-net-example --binary --strategy source --image-stream dotnet:3.1 
