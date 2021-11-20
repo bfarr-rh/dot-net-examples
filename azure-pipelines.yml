@@ -21,7 +21,12 @@ steps:
 - script: oc new-build --name dot-net-example --binary --strategy source --image-stream dotnet:3.1 
   displayName: 'Create a new build for an OpenShift s2i build'
 - script: oc start-build dot-net-example --from-dir . --follow 
-  displayName: 'Run the build and '
+  displayName: 'Run the build'
+- script:  skopeo copy --dest-creds=$env:ACR_USER:$env:ACR_PASSWORD docker://image-registry.openshift-image-registry.svc:5000/openshift/dot-net-example docker://bfdemorepo.azurecr.io/dot-net-example
+  env:
+    ACR_PASSWORD: $(acr-password)
+    ACR_USER: $(acr-user)
+  displayName: 'Store image in Azure Container Registry for backup'
 - script: oc new-app dot-net-example
   displayName: 'Create a new application'
 - script: oc expose svc/dot-net-example
