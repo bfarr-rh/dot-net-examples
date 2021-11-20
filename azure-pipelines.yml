@@ -22,10 +22,11 @@ steps:
   displayName: 'Create a new build for an OpenShift s2i build'
 - script: oc start-build dot-net-example --from-dir . --follow 
   displayName: 'Run the build'
-- script:  skopeo copy --dest-creds "$ACR_USER:$ACR_PASSWORD" --src-creds "`oc whoami`:`oc whoami -t`" --tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/azdevops/dot-net-example:latest docker://bfdemorepo.azurecr.io/dot-net-example:latest
+- script:  skopeo copy --dest-creds "$ACR_USER:$ACR_PASSWORD" --src-registry-token `oc whoami -t` --src-tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/azdevops/dot-net-example:latest docker://bfdemorepo.azurecr.io/dot-net-example:latest
   env:
     ACR_PASSWORD: $(acr-password)
     ACR_USER: $(acr-user)
+    REGISTRY_AUTH_FILE:
   displayName: 'Store image in Azure Container Registry for backup'
 - script: oc new-app dot-net-example
   displayName: 'Create a new application'
