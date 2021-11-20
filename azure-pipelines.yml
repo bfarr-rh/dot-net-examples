@@ -14,9 +14,6 @@ steps:
   displayName: 'Run a one-line script'
 - script: oc status
   displayName: 'Test oc'
-- task: Delay@1
-  inputs:
-    delayForMinutes: '1'
 - script: |
     oc delete deployment,svc,route --selector app=dot-net-example --ignore-not-found
     oc delete bc dot-net-example --ignore-not-found
