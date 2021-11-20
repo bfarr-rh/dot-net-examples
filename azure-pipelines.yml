@@ -22,7 +22,7 @@ steps:
   displayName: 'Create a new build for an OpenShift s2i build'
 - script: oc start-build dot-net-example --from-dir . --follow 
   displayName: 'Run the build'
-- script:  skopeo copy --dest-creds=$ACR_USER:$ACR_PASSWORD docker://image-registry.openshift-image-registry.svc:5000/azdevops/dot-net-example docker://bfdemorepo.azurecr.io/dot-net-example
+- script:  skopeo copy --dest-creds=$ACR_USER:$ACR_PASSWORD --tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/azdevops/dot-net-example docker://bfdemorepo.azurecr.io/dot-net-example
   env:
     ACR_PASSWORD: $(acr-password)
     ACR_USER: $(acr-user)
