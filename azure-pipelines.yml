@@ -14,6 +14,9 @@ steps:
   displayName: 'Run a one-line script'
 - script: oc status
   displayName: 'Test oc'
+- task: Delay@1
+  inputs:
+    delayForMinutes: '1'
 - script: |
     oc delete deployment,svc,route --selector app=dot-net-example --ignore-not-found
     oc delete bc dot-net-example --ignore-not-found
@@ -22,7 +25,7 @@ steps:
   displayName: 'Create a new build for an OpenShift s2i build'
 - script: oc start-build dot-net-example --from-dir . --follow 
   displayName: 'Run the build'
-- script:  skopeo copy --dest-creds=$env:ACR_USER:$env:ACR_PASSWORD docker://image-registry.openshift-image-registry.svc:5000/openshift/dot-net-example docker://bfdemorepo.azurecr.io/dot-net-example
+- script:  skopeo copy --dest-creds=$env:ACR_USER:$env:ACR_PASSWORD docker://image-registry.openshift-image-registry.svc:5000/azdevops/dot-net-example docker://bfdemorepo.azurecr.io/dot-net-example
   env:
     ACR_PASSWORD: $(acr-password)
     ACR_USER: $(acr-user)
