@@ -9,13 +9,17 @@ trigger:
 pool:
   name: 'OpenShift-Agent'
 
+variables:
+  tag: '$(Build.BuildId)'
+  project-name: dot-net-example
+
 stages: 
 - stage: Build
   displayName: Build
   jobs:
   - job: BuildJob
     steps: 
-    - script: echo Starting Pipeline!
+    - script: echo Starting Pipeline! $(tag)
       displayName: 'Run a one-line script'
     - script: oc status
       displayName: 'Test oc'
@@ -32,7 +36,7 @@ stages:
   jobs:
   - job: StoreImageJob
     steps:       
-    - script:  skopeo copy --dest-creds "$ACR_USER:$ACR_PASSWORD" --src-registry-token `oc whoami -t` --src-tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/dot-net-example/dot-net-example:latest docker://bfdemorepo.azurecr.io/dot-net-example:latest
+    - script:  skopeo copy --dest-creds "$ACR_USER:$ACR_PASSWORD" --src-registry-token `oc whoami -t` --src-tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/$(project-name)/dot-net-example:latest docker://bfdemorepo.azurecr.io/dot-net-example:$(tag)
       env:
         ACR_PASSWORD: $(acr-password)
         ACR_USER: $(acr-user)
