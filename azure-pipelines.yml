@@ -9,26 +9,46 @@ trigger:
 pool:
   name: 'OpenShift-Agent'
 
-steps:
-- script: echo Starting Pipeline!
-  displayName: 'Run a one-line script'
-- script: oc status
-  displayName: 'Test oc'
-- script: |
-    oc delete deployment,svc,route --selector app=dot-net-example --ignore-not-found
-    oc delete bc dot-net-example --ignore-not-found
-  displayName: 'Clean up previous'
-- script: oc new-build --name dot-net-example --binary --strategy source --image-stream dotnet:3.1 --env DOTNET_STARTUP_PROJECT=app/tmp.csproj --env DOTNET_RM_SRC=true 
-  displayName: 'Create a new build for an OpenShift s2i build'
-- script: oc start-build dot-net-example --from-dir /_work/1/s/. --follow 
-  displayName: 'Run the build'
-- script:  skopeo copy --dest-creds "$ACR_USER:$ACR_PASSWORD" --src-registry-token `oc whoami -t` --src-tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/dot-net-example/dot-net-example:latest docker://bfdemorepo.azurecr.io/dot-net-example:latest
-  env:
-    ACR_PASSWORD: $(acr-password)
-    ACR_USER: $(acr-user)
-    REGISTRY_AUTH_FILE:
-  displayName: 'Store image in Azure Container Registry for backup'
-- script: oc new-app dot-net-example
-  displayName: 'Create a new application'
-- script: oc expose svc/dot-net-example
-  displayName: 'Expose service'
+stages: 
+- stage: Prepare
+  displayName: Prepare
+  jobs:
+  - job: PrepareJob
+    steps: 
+    - script: echo Starting Pipeline!
+      displayName: 'Run a one-line script'
+    - script: oc status
+      displayName: 'Test oc'
+    - script: |
+        oc delete deployment,svc,route --selector app=dot-net-example --ignore-not-found
+        oc delete bc dot-net-example --ignore-not-found
+      displayName: 'Clean up previous'
+- stage: Build
+  displayName: Build
+  jobs:
+  - job: BuildJob
+    steps:   
+    - script: oc new-build --name dot-net-example --binary --strategy source --image-stream dotnet:3.1 --env DOTNET_STARTUP_PROJECT=app/tmp.csproj --env DOTNET_RM_SRC=true 
+      displayName: 'Create a new build for an OpenShift s2i build'
+    - script: oc start-build dot-net-example --from-dir /_work/1/s/. --follow 
+      displayName: 'Run the build'
+- stage: StoreImage
+  displayName: Store Image in ACR
+  jobs:
+  - job: StoreImageJob
+    steps:       
+    - script:  skopeo copy --dest-creds "$ACR_USER:$ACR_PASSWORD" --src-registry-token `oc whoami -t` --src-tls-verify=false docker://image-registry.openshift-image-registry.svc:5000/dot-net-example/dot-net-example:latest docker://bfdemorepo.azurecr.io/dot-net-example:latest
+      env:
+        ACR_PASSWORD: $(acr-password)
+        ACR_USER: $(acr-user)
+        REGISTRY_AUTH_FILE:
+    displayName: 'Store image in Azure Container Registry for backup'
+- stage: Deploy
+  displayName: Deploy
+  jobs:
+  - job: DeployJob
+    steps:   
+    - script: oc new-app dot-net-example
+      displayName: 'Create a new application'
+    - script: oc expose svc/dot-net-example
+      displayName: 'Expose service'
