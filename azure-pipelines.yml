@@ -29,7 +29,7 @@ stages:
       displayName: 'Clean up previous'
     - script: oc new-build --name dot-net-example --binary --strategy source --image-stream dotnet:3.1 --env DOTNET_STARTUP_PROJECT=app/tmp.csproj --env DOTNET_RM_SRC=true 
       displayName: 'Create a new build for an OpenShift s2i build'
-    - script: oc start-build dot-net-example --from-dir /_work/1/s/. --follow 
+    - script: oc start-build dot-net-example --from-dir /_work/1/s/. --wait --follow 
       displayName: 'Run the build'
 - stage: StoreImage
   displayName: Store Image in ACR
