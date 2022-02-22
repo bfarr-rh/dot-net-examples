@@ -11,7 +11,7 @@ pool:
 
 variables:
   tag: '$(Build.BuildId)'
-  project-name: dot-net-example
+  project-name: azure-devops
 
 stages: 
 - stage: Build
